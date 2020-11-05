@@ -3,6 +3,7 @@
     "package-lock.json": true,
     ".vscode": true,
     "node_modules": true,
-    "yarn.lock": true
+    "yarn.lock": true,
+    ".next": true
   }
 }
