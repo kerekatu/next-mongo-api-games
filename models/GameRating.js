@@ -1,22 +1,21 @@
 const mongoose = require('mongoose')
 
 const GameRatingSchema = {
-  game: {
-    name: {
-      type: String,
-      required: true
-    },
-    id: {
-      type: Number,
-      required: true
-    }
+  game_id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
+  game_name: {
+    type: String,
+    required: true,
   },
   rating: {
     type: Number,
     min: 0,
     max: 5,
-    default: 0
-  }
+    default: 0,
+  },
 }
 
 module.exports =

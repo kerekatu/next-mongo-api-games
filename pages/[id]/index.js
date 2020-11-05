@@ -1,28 +1,29 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
+import { useRouter } from 'next/router'
+
+import Header from '@/containers/header'
+import GameDetails from '@/components/game-details'
 
 const Game = () => {
-  const [stars, setStars] = useState(null)
   const router = useRouter()
-  const { data, error } = useSWR(
-    `http://localhost:3000/api/games/${router.query.id}`
+  const { data: game } = useSWR(
+    `http://localhost:3000/api/games/${router.query.id}`,
+    fetcher
+  )
+  const { data: rating } = useSWR(
+    `http://localhost:3000/api/ratings?id=${router.query.id}`,
+    fetcher,
+    {
+      refreshInterval: 500,
+    }
   )
 
-  if (!data) return <div>Loading...</div>
-
-  console.log(data)
-
   return (
-    <div>
-      <div>{data.data.name}</div>
-      <button onClick={() => setStars(1)}>1</button>
-      <button onClick={() => setStars(2)}>2</button>
-      <button onClick={() => setStars(3)}>3</button>
-      <button onClick={() => setStars(4)}>4</button>
-      <button onClick={() => setStars(5)}>5</button>
-      <style jsx>{``}</style>
-    </div>
+    <>
+      <Header />
+      <GameDetails gameData={game} ratingData={rating} />
+    </>
   )
 }
 

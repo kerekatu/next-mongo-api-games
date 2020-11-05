@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ['media.rawg.io']
-  }
+    domains: ['media.rawg.io', 'img.itch.zone'],
+  },
 }

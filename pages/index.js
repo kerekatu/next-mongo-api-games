@@ -1,12 +1,42 @@
-import Searchbar from '@/components/searchbar'
+import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
+
+import Header from '@/containers/header'
+import Loading from '@/components/common/loading'
+import Link from 'next/link'
 
 const Home = () => {
+  const { data: ratings } = useSWR(`http://localhost:3000/api/ratings`, fetcher)
+
   return (
     <>
-      <div className="container">
-        <Searchbar />
+      <Header />
+      <div>
+        <div className="ratings">
+          <h1>Latest Ratings</h1>
+          {!ratings ? (
+            <div className="center">
+              <Loading />
+            </div>
+          ) : (
+            <ul>
+              {ratings.data.map((rating) => (
+                <li key={rating._id}>
+                  <Link href={`/${rating.game_id}`}>
+                    <a>{rating.game_name}</a>
+                  </Link>{' '}
+                  ({rating.rating}/5 stars)
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-      <style jsx>{``}</style>
+      <style jsx>{`
+        .ratings > ul {
+          list-style: none;
+        }
+      `}</style>
     </>
   )
 }

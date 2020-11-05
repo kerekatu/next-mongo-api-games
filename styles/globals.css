@@ -1,3 +1,16 @@
+:root {
+  --color-white: #fff;
+  --color-gray: #f9f9f9;
+  --color-gray-2: #f1f1f1;
+  --color-gray-3: #ddd;
+  --color-gray-3-rgba: rgba(221, 221, 221, 0.4);
+  --color-gray-4: #888888;
+  --color-black: #000;
+
+  --color-primary: #8855ff;
+  --color-primary-rgba: rgba(136, 85, 255, 0.4);
+}
+
 *,
 *::before,
 *::after {
@@ -29,7 +42,13 @@ textarea {
 }
 
 .container {
-  margin: 10rem auto;
+  margin: 0 auto 10rem auto;
   width: min(100rem, 100%);
   padding: 0 4rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
