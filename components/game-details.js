@@ -130,7 +130,7 @@ const GameDetails = ({ gameData, ratingData }) => {
           ))}
           <ul className="genres">
             <strong>Genres:</strong>{' '}
-            {gameData.data?.genres ? (
+            {gameData.data?.genres.length ? (
               gameData.data.genres.map((genre, index) => (
                 <li key={index}>{genre.name}</li>
               ))
