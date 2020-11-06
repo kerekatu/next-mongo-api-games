@@ -1,20 +1,10 @@
 import GameRating from '@/models/GameRating'
 import databaseConnect from '@/lib/db'
-import initMiddleware from '@/lib/middleware'
-import Cors from 'cors'
 
 databaseConnect()
 
-const cors = initMiddleware(
-  Cors({
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-  })
-)
-
-const handler = async (req, res) => {
+export default async (req, res) => {
   const { method, query } = req
-
-  await cors(req, res)
 
   if (method === 'GET' && query.id) {
     try {
@@ -73,5 +63,3 @@ const handler = async (req, res) => {
     }
   }
 }
-
-export default handler

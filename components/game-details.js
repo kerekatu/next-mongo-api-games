@@ -18,7 +18,7 @@ const GameDetails = ({ gameData, ratingData }) => {
   }
 
   const addRating = async (rating) => {
-    const response = await fetch('http://localhost/api/ratings', {
+    const response = await fetch('http://localhost:3000/api/ratings', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -40,7 +40,7 @@ const GameDetails = ({ gameData, ratingData }) => {
 
   const deleteRating = async () => {
     const response = await fetch(
-      `http://localhost/api/ratings?id=${ratingData?.data._id}`,
+      `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
       {
         method: 'DELETE'
       }
@@ -55,7 +55,7 @@ const GameDetails = ({ gameData, ratingData }) => {
 
   const editRating = async (rating) => {
     const response = await fetch(
-      `http://localhost/api/ratings?id=${ratingData?.data._id}`,
+      `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
       {
         method: 'PUT',
         headers: {
