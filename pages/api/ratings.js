@@ -1,10 +1,10 @@
 import GameRating from '@/models/GameRating'
 import databaseConnect from '@/lib/db'
 
-databaseConnect()
-
 export default async (req, res) => {
   const { method, query } = req
+
+  databaseConnect()
 
   if (method === 'GET' && query.id) {
     try {
