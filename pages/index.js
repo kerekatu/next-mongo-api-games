@@ -6,7 +6,11 @@ import Loading from '@/components/common/loading'
 import Link from 'next/link'
 
 const Home = () => {
-  const { data: ratings } = useSWR(`http://localhost:3000/api/ratings`, fetcher)
+  const { data: ratings } = useSWR(
+    `${process.env.VERCEL_URL}/api/ratings` ||
+      `http://localhost:3000/api/ratings`,
+    fetcher
+  )
 
   return (
     <>

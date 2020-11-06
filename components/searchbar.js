@@ -11,7 +11,8 @@ const Searchbar = () => {
   const [pageIndex, setPageIndex] = useState(1)
   const [search, setSearch] = useState('')
   const { data: games } = useSWR(
-    search &&
+    (search &&
+      `${process.env.VERCEL_URL}/api/games?search=${search}&page=${pageIndex}`) ||
       `http://localhost:3000/api/games?search=${search}&page=${pageIndex}`,
     fetcher
   )

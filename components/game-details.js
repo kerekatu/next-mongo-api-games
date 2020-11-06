@@ -18,18 +18,22 @@ const GameDetails = ({ gameData, ratingData }) => {
   }
 
   const addRating = async (rating) => {
-    const response = await fetch('http://localhost:3000/api/ratings', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        game_name: gameData.data.name,
-        game_id: gameData.data.id,
-        rating
-      })
-    })
+    const response = await fetch(
+      `${process.env.VERCEL_URL}/api/ratings` ||
+        'http://localhost:3000/api/ratings',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          game_name: gameData.data.name,
+          game_id: gameData.data.id,
+          rating
+        })
+      }
+    )
     const content = await response.json()
 
     if (content.status === 'error') return
@@ -40,7 +44,8 @@ const GameDetails = ({ gameData, ratingData }) => {
 
   const deleteRating = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
+      `${process.env.VERCEL_URL}/api/ratings?id=${ratingData?.data._id}` ||
+        `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
       {
         method: 'DELETE'
       }
@@ -55,7 +60,8 @@ const GameDetails = ({ gameData, ratingData }) => {
 
   const editRating = async (rating) => {
     const response = await fetch(
-      `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
+      `${process.env.VERCEL_URL}/api/ratings?id=${ratingData?.data._id}` ||
+        `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
       {
         method: 'PUT',
         headers: {
