@@ -18,6 +18,8 @@ const Home = () => {
             <div className="center">
               <Loading />
             </div>
+          ) : !ratings.data.length ? (
+            <div>No Ratings</div>
           ) : (
             <ul>
               {ratings.data.map((rating) => (

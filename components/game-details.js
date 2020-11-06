@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { mutate } from 'swr'
 const Loading = dynamic(() => import('@/components/common/loading'))
 
 const GameDetails = ({ gameData, ratingData }) => {
@@ -10,11 +9,11 @@ const GameDetails = ({ gameData, ratingData }) => {
 
   const ratingController = (rating) => {
     if (!ratingData?.data) {
-      mutate('http://localhost:3000/api/ratings', addRating(rating))
+      addRating(rating)
     } else if (rating === stars) {
-      mutate('http://localhost:3000/api/ratings', deleteRating())
+      deleteRating()
     } else if (rating !== stars) {
-      mutate('http://localhost:3000/api/ratings', editRating(rating))
+      editRating(rating)
     }
   }
 
@@ -23,13 +22,13 @@ const GameDetails = ({ gameData, ratingData }) => {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         game_name: gameData.data.name,
         game_id: gameData.data.id,
-        rating,
-      }),
+        rating
+      })
     })
     const content = await response.json()
 
@@ -43,7 +42,7 @@ const GameDetails = ({ gameData, ratingData }) => {
     const response = await fetch(
       `http://localhost:3000/api/ratings?id=${ratingData?.data._id}`,
       {
-        method: 'DELETE',
+        method: 'DELETE'
       }
     )
     const content = await response.json()
@@ -61,9 +60,13 @@ const GameDetails = ({ gameData, ratingData }) => {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(rating),
+        body: JSON.stringify({
+          game_name: gameData.data.name,
+          game_id: gameData.data.id,
+          rating
+        })
       }
     )
     const content = await response.json()
@@ -81,9 +84,6 @@ const GameDetails = ({ gameData, ratingData }) => {
       setStars(null)
     }
   }, [ratingData])
-
-  console.log(ratingData)
-  console.log(gameData)
 
   return (
     <div>

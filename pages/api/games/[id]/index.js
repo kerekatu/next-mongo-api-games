@@ -1,7 +1,13 @@
 import nc from 'next-connect'
+import Cors from 'cors'
 
 const { RAWG_SECRET } = process.env
 const handler = nc()
+const cors = Cors({
+  methods: ['GET']
+})
+
+handler.use(cors)
 
 handler.get(async (req, res) => {
   try {

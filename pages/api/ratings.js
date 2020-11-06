@@ -1,10 +1,20 @@
 import GameRating from '@/models/GameRating'
 import databaseConnect from '@/lib/db'
+import initMiddleware from '@/lib/middleware'
+import Cors from 'cors'
 
 databaseConnect()
 
-export default async (req, res) => {
+const cors = initMiddleware(
+  Cors({
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  })
+)
+
+const handler = async (req, res) => {
   const { method, query } = req
+
+  await cors(req, res)
 
   if (method === 'GET' && query.id) {
     try {
@@ -27,7 +37,7 @@ export default async (req, res) => {
       const newRating = await GameRating.create({
         game_id: req.body.game_id,
         game_name: req.body.game_name,
-        rating: req.body.rating,
+        rating: req.body.rating
       })
 
       res.status(200).json(newRating)
@@ -38,7 +48,7 @@ export default async (req, res) => {
     try {
       const rating = await GameRating.findByIdAndUpdate(query.id, req.body, {
         new: true,
-        runValidators: true,
+        runValidators: true
       })
 
       if (!rating) {
@@ -63,3 +73,5 @@ export default async (req, res) => {
     }
   }
 }
+
+export default handler
