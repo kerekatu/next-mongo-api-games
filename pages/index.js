@@ -8,8 +8,6 @@ import Link from 'next/link'
 const Home = () => {
   const { data: ratings } = useSWR(`/api/ratings`, fetcher)
 
-  console.log(ratings)
-
   return (
     <>
       <Header />
